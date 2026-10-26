@@ -1,0 +1,351 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nick at the Capitol</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Courier+Prime:wght@400;700&family=DM+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: full-bleed ASCII Capitol drawn straight onto a white page; one narrow text column below.
+   Deliberately single-theme (white), so every color is set explicitly. */
+:root{
+  color-scheme:light;
+  --bg:#FFFFFF; --ink:#1B1F27; --muted:#6C717C; --rule:#E3E4E0;
+  --marble:#9A9FA8; --window:#43546E; --gold:#B5861A; --leaf:#4F7A4B; --leaf2:#6E9466;
+  --trunk:#7A6650; --bronze:#6A5A45; --flag:#2F4C7C;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"DM Mono", ui-monospace, Menlo, monospace;
+  --f-type:"Courier Prime", "Courier New", Courier, monospace;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:760px;margin:0 auto}
+header.wrap{padding-block:48px 8px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(44px,9vw,72px);line-height:.95;margin:0;letter-spacing:-.02em}
+.sub{margin:10px 0 0;color:var(--muted);font-size:15px}
+
+.hero{max-width:1240px;margin:0 auto;padding-block:24px 8px}
+.meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-mono);
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:760px;margin:0 auto 4px}
+.meta b{color:var(--gold);font-weight:500}
+.stage{position:relative;overflow:hidden;padding-top:8px}
+.scene{position:relative;left:50%;transform:translateX(-50%);font-family:var(--f-mono);line-height:1.2;
+  white-space:pre;user-select:none;-webkit-user-select:none}
+.art{color:var(--marble);margin:0;font:inherit;line-height:inherit}
+.c-w{color:var(--window)} .c-g{color:var(--gold)} .c-s{color:var(--bronze)} .c-f{color:var(--flag)} .c-l{color:var(--muted)}
+.tree{position:absolute;top:0;margin:0;font:inherit;line-height:inherit;white-space:pre;pointer-events:none}
+.tree span{display:block;height:1.2em}
+.tree .lf{color:var(--leaf)} .tree .lf2{color:var(--leaf2)} .tree .tk{color:var(--trunk)}
+
+.walker{position:absolute;top:0;left:0;margin:0;padding:0;border:0;background:none;color:var(--ink);
+  font:inherit;line-height:inherit;white-space:pre;text-align:left;cursor:pointer;width:4ch}
+.walker::after{content:"";position:absolute;inset:-8px -6px}
+.walker span{display:block;height:1.2em}
+.walker:hover,.walker:focus-visible,.walker.on{color:var(--gold)}
+.walker:focus-visible{outline:1px dashed var(--gold);outline-offset:3px}
+
+.card{position:absolute;z-index:60;width:236px;background:var(--bg);border:1px solid var(--ink);
+  padding:12px 14px;font-family:var(--f-type);font-size:13.5px;line-height:1.4;color:var(--ink);
+  pointer-events:none}
+.card .role{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.card .nm{font-weight:700;font-size:17px;margin:2px 0 6px}
+.card .org{color:var(--muted)}
+.card .ate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--marble)}
+.card .ate i{font-style:normal;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block}
+
+main.wrap{display:flex;flex-direction:column;gap:48px;padding-block:40px 64px}
+section h2{font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+section p{margin:0 0 14px;max-width:62ch}
+.issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0;padding:0;list-style:none}
+.issues li{background:var(--bg);padding:14px 16px;min-width:0}
+.issues b{display:block;font-family:var(--f-display);font-weight:500;font-size:18px}
+.issues span{font-size:13px;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:12px 28px;font-family:var(--f-mono);font-size:14px}
+.contact a{color:var(--ink);text-decoration-color:var(--gold);text-underline-offset:3px}
+footer{font-family:var(--f-mono);font-size:12px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px}
+</style>
+
+<header class="wrap">
+  <h1>Nick</h1>
+  <p class="sub">Government relations · St. Paul, Minnesota</p>
+</header>
+
+<div class="hero">
+  <div class="meta"><span>Capitol Mall, St. Paul</span><span id="clock">2027 session</span></div>
+  <div class="stage" id="stage">
+    <div class="scene" id="scene"><pre class="art" id="art" aria-hidden="true"></pre></div>
+    <div class="card" id="card" hidden role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="about">
+    <h2>About</h2>
+    <p>I'm a government relations specialist at Momentum Advocacy, working the Minnesota Legislature for clients in energy, technology, healthcare, and transportation.</p>
+    <p>I came to lobbying without a traditional policy background, and I've found that's useful: most of the job is translating between the people who build things and the people who write the rules.</p>
+  </section>
+
+  <section id="work">
+    <h2>What I work on</h2>
+    <ul class="issues">
+      <li><b>Energy</b><span>Storage, siting, the grid</span></li>
+      <li><b>Technology</b><span>AI, data centers, crypto</span></li>
+      <li><b>Health</b><span>Mental health parity</span></li>
+      <li><b>Transportation</b><span>Roads, transit, freight</span></li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Say hello</h2>
+    <div class="contact">
+      <span>hello@[yourdomain]</span>
+      <a href="#">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>Made in St. Paul.</footer>
+</main>
+
+<script>
+const ART=["                                                                                o", "                                                                               _|_", "                                                                              [|||]", "                                                                             _[|||]_", "                                                                            _.-'|'-._", "                                                                        .-'  |  o  |  '-.", "                                                                      .'  o  |  |  |  o  '.", "                                                                   /  |   |   |   |   |   |  \\", "                                                                  /   |   |   |   |   |   |   \\", "                                                                  (===========================)", "                                      |==                     /^\\ ||  |#|  ||  |#|  ||  |#|  || /^\\                       |==", "                                      |==                     |=| ||  |#|  ||  |#|  ||  |#|  || |=|                       |==", "                                      |                       |_|_||  |_|  ||  |_|  ||  |_|  ||_|_|                       |", "                                      |                       |===================================|                       |", "                                      |                      _|____________~m^m^W^m^m~____________|_                      |", "                                     (:)                      |  [:]   [:]   .-\"\"\"-.   [:]   [:]  |                      (:)", "                                   _.-^-._                    |_____________|  (o)  |_____________|                    _.-^-._", "                _________________________________________|=============================================|_________________________________________", "                |'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'||_____________________________________________||'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|'|", "                ========|===============================||=============================================||===============================|========", "                |  |#|  |  |#|  |#|  |#|  |#|  |#|  |#| ||  ||  .-----.  ||  .-----.  ||  .-----.  ||  || |#|  |#|  |#|  |#|  |#|  |#|  |  |#|  |", "                |  |_|  |  |_|  |_|  |_|  |_|  |_|  |_| ||  ||  |     |  ||  |     |  ||  |     |  ||  || |_|  |_|  |_|  |_|  |_|  |_|  |  |_|  |", "                |-------|-------------------------------||  ||  | |#| |  ||  | |#| |  ||  | |#| |  ||  ||-------------------------------|-------|", "                |   _   |   _    _    _    _    _    _  ||  ||  |_|_|_|  ||  |_|_|_|  ||  |_|_|_|  ||  ||  _    _    _    _    _    _   |   _   |", "                |  |#|  |  |#|  |#|  |#|  |#|  |#|  |#| ||=============================================|| |#|  |#|  |#|  |#|  |#|  |#|  |  |#|  |", "                |  |#|  |  |#|  |#|  |#|  |#|  |#|  |#| ||  ||   .---.   ||   .---.   ||   .---.   ||  || |#|  |#|  |#|  |#|  |#|  |#|  |  |#|  |", "                |  |_|  |  |_|  |_|  |_|  |_|  |_|  |_| ||  o|  .'   '.  ||  .'   '.  ||  .'   '.  |o  || |_|  |_|  |_|  |_|  |_|  |_|  |  |_|  |", "                |=======|===============================|| /|\\  |  #  |  ||  |  #  |  ||  |  #  |  /|\\ ||===============================|=======|", "                |  [:]  |  [:]  [:]  [:]  [:]  [:]  [:] || / \\  |  #  |  ||  |  #  |  ||  |  #  |  / \\ || [:]  [:]  [:]  [:]  [:]  [:]  |  [:]  |", "                ____o___|_________________o_____________||_[=]__|__#__|__||__|__#__|__||__|__#__|__[=]_||_____________o_________________|___o____", "              ______|_____________________|_____________/__|_|_____________________________________|_|__\\_____________|_____________________|______", "                    |                     |          /=====================================================\\          |                     |", "                   _|_                   _|_      /___________________________________________________________\\      _|_                   _|_", "                                               /=================================================================\\", "", "", "", "", "", "", "", "    .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       ."];
+const ART_CLS=["................................................................................g", "..................................................................................", "...................................................................................", "....................................................................................", ".....................................................................................", ".........................................................................................", "...........................................................................................", "..............................................................................................", "...............................................................................................", "...............................................................................................", ".......................................ff..................................................................................ff", ".......................................ff..................................................................................ff", "...........................................................................................................................", "...........................................................................................................................", "...........................................................................ggggggggggg.....................................", "............................................................................................................................", "..............................................................................................................................", ".................................................................................................................................................", ".................................................................................................................................................", ".................................................................................................................................................", "...................www.....www..www..www..www..www..www...................................................www..www..www..www..www..www.....www...", ".................................................................................................................................................", "...................................................................w............w............w...................................................", ".................................................................................................................................................", "...................www.....www..www..www..www..www..www...................................................www..www..www..www..www..www.....www...", "...................www.....www..www..www..www..www..www...................................................www..www..www..www..www..www.....www...", "............................................................s.......................................s............................................", "...........................................................sss.....w............w............w.....sss...........................................", "...........................................................sss.....w............w............w.....sss...........................................", "....................g.....................g................sss.....................................sss................g.....................g....", "....................l.....................l................sss.....................................sss................l.....................l......", "....................l.....................l...........................................................................l.....................l", "...................lll...................lll.........................................................................lll...................lll", "..................................................................................................................", "", "", "", "", "", "", "", "....l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l.......l"];
+
+(function(){
+  const H = ART.length, W = 161, LANES = [34, 37, 39];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scene = document.getElementById("scene"), stage = document.getElementById("stage");
+  const card = document.getElementById("card");
+
+  /* ---------- building ---------- */
+  const esc = c => c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : c;
+  /* flags get drawn as their own animated pieces, so clear the static ones */
+  const FLAG_POLES = [38, 122];
+  [10, 11].forEach(r => { let s = ART[r]; FLAG_POLES.forEach(c => { s = s.slice(0, c + 1) + "  " + s.slice(c + 3); }); ART[r] = s; });
+  document.getElementById("art").innerHTML = ART.map((line, r) => {
+    let out = "", cur = ".", buf = "";
+    const flush = () => { if (!buf) return; out += cur === "." ? buf : '<span class="c-' + cur + '">' + buf + '</span>'; buf = ""; };
+    for (let i = 0; i < line.length; i++) {
+      const k = ART_CLS[r][i] || ".";
+      if (k !== cur) { flush(); cur = k; }
+      buf += esc(line[i]);
+    }
+    flush();
+    return out;
+  }).join("\n");
+
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  /* ---------- trees that move in the wind ---------- */
+  const TREE = [
+    "    .@@@.    ",
+    "  .@@@@@@@.  ",
+    " @@@@@@@@@@@ ",
+    "@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@",
+    " @@@@@@@@@@@ ",
+    "  '@@@|@@@'  ",
+    "     \\|/     ",
+    "      |      ",
+    "      |      ",
+    "      |      ",
+    "     /|\\     "
+  ];
+  const SWAY = [1, .95, .85, .7, .55, .4, .25, 0, 0, 0, 0, 0];
+  const LEAF = "@@@%&8";
+  /* ---------- flags that ripple ---------- */
+  const FLAG_FRAMES = [["=~-", "=-~"], ["=-~", "=~-"], ["~=-", "-=~"], ["-~=", "~-="]];
+  const flags = FLAG_POLES.map((c, i) => {
+    const el = document.createElement("pre");
+    el.className = "tree c-f"; el.setAttribute("aria-hidden", "true");
+    el.style.left = (c + 1) + "ch"; el.style.top = (10 * 1.2) + "em";
+    el.innerHTML = "<span></span><span></span>";
+    scene.appendChild(el);
+    return {el, f: i * 2};
+  });
+  function renderFlag(fl){
+    const fr = FLAG_FRAMES[fl.f % FLAG_FRAMES.length];
+    fl.el.children[0].textContent = fr[0]; fl.el.children[1].textContent = fr[1];
+  }
+  flags.forEach(renderFlag);
+  let flagClock = 0;
+
+  const trees = [[1, 19, 0], [147, 19, 2.1]].map(([col, row, phase]) => {
+    const el = document.createElement("pre");
+    el.className = "tree"; el.setAttribute("aria-hidden", "true");
+    el.style.left = (col - 1) + "ch"; el.style.top = (row * 1.2) + "em";
+    el.innerHTML = TREE.map(() => "<span></span>").join("");
+    scene.appendChild(el);
+    const leaves = TREE.map(l => [...l].map(c => c === "@" ? pick(LEAF) : c));
+    return {el, phase, leaves, last: ""};
+  });
+  function renderTree(t, time){
+    const gust = .55 + .45 * Math.sin(time * .17 + t.phase) + .25 * Math.sin(time * .53);
+    const s = (Math.sin(time * 1.1 + t.phase) * .6 + Math.sin(time * 2.7 + t.phase * 2) * .4) * gust;
+    let key = "";
+    const rows = t.leaves.map((chars, i) => {
+      const off = Math.max(-1, Math.min(1, Math.round(s * SWAY[i] * 1.3)));
+      key += off;
+      if (Math.abs(s) > .7 && Math.random() < .04) {           // rustle a leaf
+        const j = Math.floor(Math.random() * chars.length);
+        if (LEAF.includes(chars[j])) chars[j] = pick(LEAF);
+      }
+      const row = chars.join("");
+      return off > 0 ? "  " + row : off < 0 ? row : " " + row;
+    });
+    t.el.innerHTML = rows.map((line, i) => "<span>" + [...line].map(c => {
+      if (LEAF.includes(c)) return '<span class="' + ((c === "%" || c === "8") ? "lf2" : "lf") + '" style="display:inline;height:auto">' + esc(c) + "</span>";
+      if (c === "|" || c === "/" || c === "\\" || c === "'") return '<span class="tk" style="display:inline;height:auto">' + esc(c) + "</span>";
+      return esc(c);
+    }).join("") + "</span>").join("");
+  }
+
+  /* ---------- random people ---------- */
+  const FIRST = ["Ingrid","Dale","Kari","Bjorn","Tamika","Rosa","Hector","Mai","Abdi","Linnea","Gus","Marcy","Ole","Deb","Priya","Tor","Shawna","Leif","Fatuma","Rich","Jolene","Kong","Arne","Bev","Darnell","Solveig","Yusuf","Trish","Walt","Nadia","Kirsten","Lamar"];
+  // Most common Minnesota surnames (Geneanet), plus Hmong and Somali surnames
+  const LAST = ["Johnson","Anderson","Nelson","Olson","Peterson","Smith","Larson","Miller","Hanson","Brown","Erickson","Thompson","Carlson","Meyer","Schmidt","Hansen","Williams","Jones","Davis","Clark","Lee","Wilson","Martin","Berg","Swanson","Wagner","Becker","Schultz","Jensen","Weber","Hall","Jacobson","Schneider","Young","Allen","Schmitz","Baker","Hill","King","Taylor","Campbell","Dahl","Olsen","Adams","Hoffman","White","Klein","Swenson","Murphy","Benson","Thomas","Knutson","Mueller","Peters","Bauer","Scott","Ryan","Pederson","Moore","Fischer","Wright","Lewis","Robinson","Schroeder","Hagen","Stevens","Sullivan","Green","Schwartz","Wood","Palmer","Paulson","Roberts","Krueger","Ward","Cook","Christensen","Pearson","Harris","Braun","Iverson","Walker","Moen","Rice","Lund","Murray","Wolf","Zimmerman","Bailey","Fairbanks","Carpenter","Rausch","Gustafson","Theisen","Hendrickson","Rogers","Brandt","Evans","Kelly",
+    "Vang","Xiong","Yang","Thao","Moua","Her","Hassan","Mohamed","Ali","Abdi"];
+  const ROLES = {
+    Lobbyist: { acc: "#",
+      titles: ["Senior Lobbyist","Government Affairs Director","Contract Lobbyist","Principal","VP, Public Policy","Legislative Counsel"],
+      orgs: ["Coalition for Responsible Hotdish","North Star Snowplow Alliance","Minnesota Walleye Council","Upper Midwest Data Center Assn.","Ten Thousand Lakes Strategies","Friends of the Common Loon","Associated Bait Shops of MN","Prairie Wind Energy Partners","Grain Belt Freight Coalition","Minnesotans for Fewer Potholes","Lutefisk Producers Guild","Ice House Owners of America"] },
+    Legislator: { acc: "*",
+      titles: () => Math.random() < .5 ? "State Representative, " + Math.ceil(rnd(0, 67)) + pick(["A","B"]) : "State Senator, District " + Math.ceil(rnd(0, 67)),
+      orgs: () => pick(["Vice Chair","Member","Ranking Member","Chair"]) + ", " + pick(["Transportation Finance","Energy & Utilities","Commerce","Health & Human Services","Taxes","Capital Investment","Agriculture","State Government"]) + " Committee" },
+    Staffer: { acc: "]",
+      titles: ["Committee Administrator","Legislative Assistant","Caucus Comms Staffer","Fiscal Analyst","Bill Drafter","Scheduler"],
+      orgs: ["House Research","Senate Counsel & Research","Office of the Revisor","House Fiscal Analysis","Senate Majority Caucus","House Minority Caucus"] },
+    Reporter: { acc: "¶",
+      titles: ["Capitol Reporter","Politics Editor","Statehouse Correspondent","Photographer"],
+      orgs: ["The Lakes Ledger","KNOR 88.3 FM","Prairie Public Wire","Iron Range Gazette","Twin Cities Dispatch"] },
+    Intern: { acc: "u",
+      titles: ["Session Intern","Legislative Page","Policy Fellow"],
+      orgs: ["Gopher Legislative Fellows","the Senate Page Program","a lobbying shop (unpaid, obviously)","the Governor's Office"] },
+    Constituent: { acc: "!",
+      titles: () => "Concerned citizen from " + pick(["Bemidji","Duluth","Worthington","Grand Marais","Hibbing","Mankato","Fergus Falls","Ely","Red Wing","Moorhead"]),
+      orgs: ["Here about the bike trail","Here about a stop sign","Here about property taxes","Brought a petition","Looking for Room 1200"] }
+  };
+  const FOODS = ["a walleye sandwich from the Capitol cafeteria","tater tot hotdish","a Juicy Lucy","a pronto pup","Funyuns from the Senate vending machine","cold coffee and half a granola bar","lefse with butter and sugar","wild rice soup","pan bars left over from a committee hearing","a single string cheese","cheese curds","reception meatballs on a toothpick","Sun Chips during a floor session","nothing, it's week 18 of session","cranberry wild rice salad","Special K bars someone's mom made","a Nut Goodie","a Pearson's Salted Nut Roll"];
+  const timeStr = () => { const h = Math.floor(rnd(6, 24)), m = Math.floor(rnd(0, 60)); return (((h + 11) % 12) + 1) + ":" + String(m).padStart(2, "0") + (h < 12 ? " AM" : " PM"); };
+  const QUOTES = ["We'll just fix it in conference committee.", "Is the tunnel to the State Office Building open?", "I have the votes. I think I have the votes.", "Can you send me the one-pager? No, the other one-pager.", "It's not a tax, it's a fee.", "That amendment is germane if you squint.", "I'm not lobbying you, I'm just saying hi.", "The fiscal note is going to be ugly.", "Sine die can't come fast enough.", "My member is a soft yes. Soft-ish.", "Did they lay it over again?", "It's a technical bill. Totally technical. Don't read section 4.", "Wait, are we on the omnibus or the other omnibus?", "Ope, sorry, just gonna squeeze past ya.", "The bill's dead. Well, mostly dead.", "Room 1100, 1150, or 1200? They all look the same.", "Senate Taxes is in G-15 again. Bring a sweater.", "I took the tunnel from the Senate Building and somehow ended up at the Transportation Building.", "Basement Hearing Room, standing room only. Of course.", "They moved it from Room 10 to Room 5 and didn't tell anybody.", "I'll meet you at the Rathskeller. Is it open today?", "Someone left a binder on the Leif Erikson statue again.", "The Rotunda is the only place with cell service.", "Meet me under the dome. No, the inside of the dome.", "I parked in the Centennial ramp and walked the wrong way for twenty minutes.", "I got a spot on the first try. First time in six years.", "Took the Green Line to Capitol/Rice Street. Fastest way to beat the ramps.", "Did you see the quadriga? It's literally gold leaf.", "Cass Gilbert would not approve of these folding chairs.", "Ways and Means is going to gut it.", "If it's not in the bonding bill by Friday, it's not in the bonding bill.", "Capital Investment toured our site. In February. In a blizzard.", "Energy, Utilities, Environment and Climate, that's the whole committee name. Every time.", "Rules and Legislative Administration meets when it meets.", "First committee deadline is the real deadline. The rest are vibes.", "Can you get it a hearing in Transportation before the second deadline?", "House Research says it's fine. Senate Counsel says it's not fine.", "Send it to the Revisor and pray.", "Is the Chief Clerk's desk the one with all the paper?", "They want it heard in Commerce first, then Ways and Means, then probably the moon.", "Agriculture, Broadband, and Rural Development. Say that three times fast.", "Higher Ed is in G-15. The Capitol one, not the other one.", "I've been waiting outside Room 200 since 8:15.", "Testimony is two minutes. I wrote eleven.", "The House floor session is at noon. So, like, 2:30.", "Floor session went past midnight. The vending machines are empty.", "Can I get a copy of the A-engrossment? The delete-everything amendment changed everything.", "Do we have a Senate author yet? A House author? Any author?", "Let's chat in the Senate Building cafe. It has windows.", "I gave my card to Capitol Security by mistake.", "Is it the Centennial Building or the Centennial Office Building? I just call it 'the one with the ramp.'", "The Judicial Center tunnel is the scenic route.", "Our coalition has 40 members and zero consensus.", "The Governor's Reception Room is booked solid through May.", "I came for the press conference in the Rotunda and stayed for the cookies.", "Every year the Rotunda gets louder and my hearing gets worse.", "We should do a Capitol Day. Bus everyone up from Rochester.", "The marble stairs are a workout I did not sign up for.", "Somebody tell me which door of the State Office Building isn't locked.", "HHS Finance went three hours and they never got to our bill.", "The deadline was Friday. It's Saturday. Is it still Friday?", "Housing and Homelessness Prevention is in 1150, right? Right??", "Judiciary and Public Safety is in G-15 again. Bring snacks.", "Elections committee is either totally empty or totally packed.", "I need ten minutes with the committee administrator. Five, honestly.", "Can you print forty copies? The committee wants paper.", "I said 'Mr. Chair' to a Madam Chair and now I live here forever.", "The press corps knows about it before I do. Every time.", "Bring the binder. No, the big binder.", "Ope, wrong hearing room. Again."];
+  const ROLE_WEIGHTS = ["Lobbyist","Lobbyist","Lobbyist","Legislator","Legislator","Staffer","Staffer","Reporter","Intern","Constituent"];
+  function person(){
+    const role = pick(ROLE_WEIGHTS), R = ROLES[role];
+    return {role, acc: R.acc, name: pick(FIRST) + " " + pick(LAST),
+      title: typeof R.titles === "function" ? R.titles() : pick(R.titles),
+      quote: pick(QUOTES)};
+  }
+
+  /* ---------- walkers ---------- */
+  let walkers = [], active = null, pinned = false;
+  function draw(w){
+    const right = w.dir > 0, legs = (w.step % 2 === 0) ? "/ \\" : " | ";
+    const pad = s => right ? s + " " : " " + s;
+    const rows = [pad(" o "), right ? "/|\\" + w.p.acc : w.p.acc + "/|\\", pad(legs)];
+    for (let i = 0; i < 3; i++) w.el.children[i].textContent = rows[i];
+    w.el.style.left = (Math.round(w.x) - (right ? 0 : 1)) + "ch";
+  }
+  function assign(w, fromEdge){
+    w.p = person(); w.lane = pick(LANES); w.dir = Math.random() < .5 ? 1 : -1;
+    w.x = fromEdge ? (w.dir > 0 ? -4 : W + 1) : rnd(4, W - 8);
+    w.speed = rnd(2, 5); w.pause = fromEdge ? rnd(0, 6) : 0; w.leaving = false;
+    w.el.style.top = (w.lane * 1.2) + "em"; w.el.style.zIndex = w.lane;
+    w.el.setAttribute("aria-label", w.p.name + ", " + w.p.role);
+  }
+  function spawn(){
+    const el = document.createElement("button");
+    el.className = "walker"; el.type = "button";
+    el.innerHTML = "<span></span><span></span><span></span>";
+    scene.appendChild(el);
+    const w = {el, step: 0, lastCol: null};
+    assign(w, false);
+    el.addEventListener("pointerenter", e => { if (e.pointerType === "mouse" && !pinned) show(w); });
+    el.addEventListener("pointerleave", e => { if (e.pointerType === "mouse" && !pinned) hide(); });
+    el.addEventListener("focus", () => { if (!pinned) show(w); });
+    el.addEventListener("blur", () => { if (!pinned) hide(); });
+    el.addEventListener("click", e => {
+      e.stopPropagation();
+      if (pinned && active === w) { pinned = false; hide(); } else { pinned = true; show(w); }
+    });
+    draw(w);
+    return w;
+  }
+  walkers = Array.from({length: 12}, spawn);
+
+  function newCrowd(){
+    walkers.forEach(w => { if (w !== active) { w.leaving = true; w.pause = 0; } });
+    setTimeout(newCrowd, rnd(70, 120) * 1000);
+  }
+  setTimeout(newCrowd, rnd(70, 120) * 1000);
+
+  function show(w){
+    if (active && active !== w) active.el.classList.remove("on");
+    active = w; w.el.classList.add("on");
+    const p = w.p;
+    card.innerHTML = '<div class="nm">' + p.name + '</div><div>' + p.title + '</div>' +
+      '<div class="ate"><i>Overheard saying</i>“' + p.quote + '”</div>';
+    card.hidden = false; place();
+  }
+  function hide(){ if (active) active.el.classList.remove("on"); active = null; card.hidden = true; }
+  function place(){
+    if (!active) return;
+    const s = stage.getBoundingClientRect(), r = active.el.getBoundingClientRect();
+    const cw = card.offsetWidth, chh = card.offsetHeight;
+    let left = Math.max(8, Math.min(s.width - cw - 8, r.left - s.left + r.width / 2 - cw / 2));
+    let top = r.top - s.top - chh - 10;
+    if (top < 4) top = r.bottom - s.top + 10;
+    card.style.left = left + "px"; card.style.top = top + "px";
+  }
+  document.addEventListener("click", () => { if (pinned) { pinned = false; hide(); } });
+
+  /* ---------- fit 161 columns to the page ---------- */
+  function fit(){
+    const probe = document.createElement("span");
+    probe.style.cssText = "position:absolute;visibility:hidden;font-size:100px;font-family:var(--f-mono)";
+    probe.textContent = "0000000000";
+    scene.appendChild(probe);
+    const ratio = probe.getBoundingClientRect().width / 1000;
+    probe.remove();
+    const fs = Math.max(5.2, Math.min(12, stage.clientWidth / (W * ratio)));
+    scene.style.fontSize = fs + "px";
+    scene.style.width = W + "ch";
+    stage.style.height = (H * 1.2 * fs + 12) + "px";
+    place();
+  }
+
+  /* ---------- loop ---------- */
+  let last = performance.now(), treeClock = 0;
+  function tick(now){
+    const dt = Math.min(.1, (now - last) / 1000); last = now;
+    const t = now / 1000;
+    treeClock += dt;
+    if (treeClock > .18) { treeClock = 0; trees.forEach(tr => renderTree(tr, reduce ? 0 : t)); }
+    flagClock += dt;
+    if (!reduce && flagClock > .26) { flagClock = 0; flags.forEach(fl => { if (Math.random() < .85) { fl.f++; renderFlag(fl); } }); }
+    if (!reduce) walkers.forEach(w => {
+      if (w === active) return;
+      if (w.pause > 0) { w.pause -= dt; return; }
+      w.x += w.dir * w.speed * (w.leaving ? 1.6 : 1) * dt;
+      const col = Math.round(w.x);
+      if (col !== w.lastCol) { w.lastCol = col; w.step++; draw(w); }
+      if (!w.leaving && Math.random() < dt * .08) w.pause = rnd(.8, 2.6);
+      if (w.x < -5 || w.x > W + 2) { assign(w, true); draw(w); }
+    });
+    if (active) place();
+    requestAnimationFrame(tick);
+  }
+
+  /* ---------- session countdown: MN Legislature convenes Jan 5, 2027 ---------- */
+  const days = Math.ceil((new Date(2027, 0, 5) - new Date()) / 864e5);
+  document.getElementById("clock").innerHTML = days > 0 ? "2027 session in <b>" + days + "</b> days" : "<b>In session</b>";
+
+  trees.forEach(tr => renderTree(tr, 0));
+  fit();
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+  addEventListener("resize", fit);
+  requestAnimationFrame(tick);
+})();
+</script>
+
+</body></html>
