@@ -2,7 +2,7 @@
 <title>Nick Sandberg</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Courier+Prime:wght@400;700&family=DM+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Courier+Prime:wght@400;700&family=DM+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: full-bleed ASCII Capitol drawn straight onto a white page; one narrow text column below.
    Deliberately single-theme (white), so every color is set explicitly. */
@@ -11,8 +11,8 @@
   --bg:#FFFFFF; --ink:#1B1F27; --muted:#6C717C; --rule:#E3E4E0;
   --marble:#9A9FA8; --window:#43546E; --gold:#B5861A; --leaf:#4F7A4B; --leaf2:#6E9466;
   --trunk:#7A6650; --bronze:#6A5A45; --flag:#2F4C7C;
-  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --f-body:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-display:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-body:"IBM Plex Mono", ui-monospace, Menlo, monospace;
   --f-mono:"DM Mono", ui-monospace, Menlo, monospace;
   --f-type:"Courier Prime", "Courier New", Courier, monospace;
 }
@@ -22,7 +22,7 @@ body{font-family:var(--f-body);font-size:16px;line-height:1.6;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 .wrap{max-width:760px;margin:0 auto}
 header.wrap{padding-block:48px 8px}
-h1{font-family:var(--f-display);font-weight:700;font-size:clamp(44px,9vw,72px);line-height:.95;margin:0;letter-spacing:-.02em}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(44px,9vw,72px);line-height:.95;margin:0;letter-spacing:-.03em}
 .sub{margin:10px 0 0;color:var(--muted);font-size:15px}
 
 .hero{max-width:1240px;margin:0 auto;padding-block:24px 8px}
@@ -57,6 +57,9 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(44px,9vw,72px);l
 main.wrap{display:flex;flex-direction:column;gap:48px;padding-block:40px 64px}
 section h2{font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
 section p{margin:0 0 14px;max-width:62ch}
+.about{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start}
+.portrait{margin:0;font-family:var(--f-mono);font-size:5.4px;line-height:1.2;color:var(--ink);white-space:pre;user-select:none}
+@media (max-width:560px){.about{grid-template-columns:1fr;gap:20px}}
 .issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0;padding:0;list-style:none}
 .issues li{background:var(--bg);padding:14px 16px;min-width:0}
 .issues b{display:block;font-family:var(--f-display);font-weight:500;font-size:18px}
@@ -82,8 +85,41 @@ footer{font-family:var(--f-mono);font-size:12px;color:var(--muted);border-top:1p
 <main class="wrap">
   <section id="about">
     <h2>About</h2>
-    <p>I'm a government relations specialist at <a href="https://momentumadvocacy.com">Momentum Advocacy</a>, working in the Minnesota Legislature primarily for clients in technology, transportation, and healthcare.</p>
+    <div class="about">
+      <pre class="portrait" role="img" aria-label="ASCII portrait of Nick Sandberg">                          :1LCG00GCLt;,
+                       ,1G@@@@@8808888GLi.
+                     ,f8@GfttfC088888@@@8G;
+                    i8@Gt;;;:;;i1L0@@8808@0:.
+                   t88Gfi;:::::,,,:iC@88@@8t:.
+                  t808G1;;:::,,,,,,,,;1f0@@0:i.
+                  G@@8f;:::,,,,,,,..,.,,:tG0iti
+                  f@Gii1tfft;:,,,:;ittt1;,,t@Li.
+                  1@1iftt11tt1;::i1t1iiii;..18t,
+                 .fGi11ffff1ttt::1;1tftt1i; ,f,:
+                 :Cfiiii;;;;;tf:,i;:::::::,..:,,.
+                  fti;;::::;i1i,,,;;;:::,,,. ,.,.
+                  .ti;;:::;it1t;;ii::;i::::. ,,,
+                   .;ii;;iiii1t1i;;;:;1ti;;,.::,
+                     ii;:;1Lfi;::,::iLi;:::,.::.
+                     ,1;;,:ifi;::::;i:::::::,:,
+                    ..:1ii;;i1111iii:::::;;,,,
+                     ..,1t1i;;;;;;:::::;ii,.,
+                      ..:ttf1i;;::::;i11;:, ,:
+                    ....iiittfffttttt1;:,:.  01;:..
+                   .. :G:fi;;ii11i;;:,,,;.  ,@CfLftfi;;.
+                    .t@@:.t1:::;;:,,,,:;,.. L@0CGGGGGC@8fi;;,
+            ,.    :t0@@@G  ;;:,:::::::,,.,;.8888808000@@80888L:
+          .;i  .10@@@8@@@;,,,:,,,,,;i. .   f@8888888@@@88@@8@@G.
+         .,;1iC@@@88@@@@@G:1:,,,,,;i.     ,@8888888@@888888@@t
+         :tG8@@@@8@@@@@@@@t.,,....,.      t@8888888888888@@G,
+       ,G@@@@8@@@@@@@@@@@@@, .   ..       088888888888@@@G;
+        :L8@@@@@@@8@@@@@@@@G     .       ;@888888888@@@L:
+          .1G@@@@888@@@@@@@@; .  .       L@88888888801.</pre>
+      <div>
+        <p>I'm a government relations specialist at <a href="https://momentumadvocacy.com">Momentum Advocacy</a>, working in the Minnesota Legislature primarily for clients in technology, transportation, and healthcare.</p>
     <p>I came to lobbying without a traditional policy background, and I've found that's useful: most of the job is translating between the people who build things and the people who write the rules.</p>
+      </div>
+    </div>
   </section>
 
   <section id="contact">
