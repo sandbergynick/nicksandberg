@@ -131,7 +131,7 @@ footer{font-family:var(--f-mono);font-size:12px;color:var(--muted);border-top:1p
 </pre>
       <div>
         <p>I studied political science at the University of Minnesota, then worked for the Legislature in nonpartisan roles before moving into government relations at <a href="https://momentum-advocacy.com">Momentum Advocacy</a>, where I work with clients in technology, transportation, and healthcare.</p>
-<p>I became interested in being a lobbyist because I thought it sounded cool. I've stayed because I am endlessly engaged by the fast-paced environment where I get to solve problems with meaningful outcomes. I care deeply about trust in government. I value honesty and being easy to work with.</p>
+<p>I got into lobbying because it looked like fun. Since, I've found the work to be endlessly rewarding (and fun only sometimes). My belief that trust in government is important has been reinforced by my experience as a lobbyist. I try to be honest and easy to work with.</p>
       </div>
     </div>
   </section>
@@ -277,28 +277,83 @@ const ART_CLS=["................................................................
       quote: pick(QUOTES)};
   }
 
-  /* ---------- walkers ---------- */
-  let walkers = [], active = null, pinned = false;
-  function draw(w){
-    const right = w.dir > 0, legs = (w.step % 2 === 0) ? "/ \\" : " | ";
-    const pad = s => right ? s + " " : " " + s;
-    const rows = [pad(" o "), right ? "/|\\" + w.p.acc : w.p.acc + "/|\\", pad(legs)];
-    for (let i = 0; i < 3; i++) w.el.children[i].textContent = rows[i];
-    w.el.style.left = (Math.round(w.x) - (right ? 0 : 1)) + "ch";
+  /* ---------- walkers with a little personality ---------- */
+  const ROWS = [34, 35, 36, 37, 38];                 // rows people can wander between (head row)
+  const SAY = {
+    run:   ["Hearing started five minutes ago!", "Sorry! Sorry! Late for Ways and Means!", "They moved it to Room 5!", "Left my testimony in the car!", "Is our bill up? Is it up?!", "The vote's happening right now!", "Tunnel's faster! No it isn't!"],
+    smoke: ["Five minutes. Then back to the hearing.", "Only quiet spot on the whole campus.", "Don't tell my member.", "I'm just out here thinking about the fiscal note.", "Last one before conference committee.", "Session's long. Very long."],
+    phone: ["No, the OTHER amendment.", "Tell them we're a soft yes.", "I'm literally outside the building.", "You're breaking up. It's the tunnels.", "Yeah, I'll send the one-pager right now.", "Can you pull the A-engrossment for me?"],
+    lost:  ["Which one is the Senate Building?", "Is this the way to Room 1200?", "Where do I sign up to testify?", "Is the State Office Building the one with the ramp?", "Which door is unlocked?"],
+    chat:  ["...and that's why it's a fee, not a tax.", "Did you see the fiscal note?", "We should grab coffee. Real coffee.", "Are you on the omnibus or the other omnibus?", "Long time no see! Since yesterday.", "Off the record? It's not getting a hearing.", "Who's your Senate author?"],
+    turn:  ["Forgot my badge.", "Wrong building.", "Left the binder. The big binder.", "Hold on, my hearing's the other way."]
+  };
+  const MIRROR = {"/": "\\", "\\": "/", "<": ">", ">": "<", "(": ")", ")": "(", "[": "]", "]": "["};
+  const flip = s => [...s].reverse().map(c => MIRROR[c] || c).join("");
+  const chance = (perSec, dt) => Math.random() < perSec * dt;
+  let walkers = [], active = null, pinned = false, clock = 0;
+
+  function quoteFor(w){ const l = SAY[w.state]; return l && Math.random() < .85 ? pick(l) : pick(QUOTES); }
+  function setState(w, st, dur){
+    w.state = st; w.t = 0; w.dur = dur || 0; w.anim = 0; w.flipAt = rnd(1, 2.5);
+    w.p.quote = quoteFor(w);
+    if (w === active) { card.textContent = "“" + w.p.quote + "”"; place(); }
   }
+
+  /* each pose is drawn facing right, 4 columns x 4 rows (top row is for effects) */
+  function frames(w){
+    const a = w.p.acc, f = Math.floor(w.anim), stepA = w.step % 2 === 0;
+    const walkLegs = stepA ? "/ \\ " : " |  ", stand = "/ \\ ";
+    switch (w.state) {
+      case "run":
+        return stepA ? ["    ", "  o/", " /| ", " /> "] : ["    ", " \\o ", "  |\\", " |\\ "];
+      case "chat": {
+        if (!w.speaking) return ["    ", " o  ", "/|\\" + a, stand];
+        const dots = ["  . ", "  ..", " ...", "  .."][f % 4];
+        return [dots, " o  ", f % 2 ? "/|-" + " " : "/|\\" + a, stand];
+      }
+      case "smoke": {
+        const k = f % 6;
+        if (k < 2) return ["    ", " o- ", "/|  ", stand];                    // drag
+        return [["  ( ", "   )", "  ) ", "   ~"][k - 2], " o  ", "/|\\'", stand];  // exhale, ember in hand
+      }
+      case "phone":
+        return [f % 3 === 0 ? "   )" : "    ", " o] ", "/|  ", walkLegs];
+      case "lost":
+        return [f % 2 ? "  ? " : "    ", " o  ", "/|\\" + a, stand];
+      case "wave":
+        return ["    ", "\\o/ ", " |  ", walkLegs];
+      case "turn":
+        return ["  ! ", " o  ", "/|\\" + a, stand];
+      default:
+        return ["    ", " o  ", "/|\\" + a, w.pause > 0 ? stand : walkLegs];
+    }
+  }
+  function draw(w){
+    let rows = frames(w);
+    if (w.dir < 0) rows = rows.map(flip);
+    const key = rows.join("\n");
+    if (key !== w.key) { w.key = key; for (let i = 0; i < 4; i++) w.el.children[i].textContent = rows[i]; }
+    w.el.style.left = (Math.round(w.x) - (w.dir > 0 ? 0 : 1)) + "ch";
+    w.el.style.top = ((w.y - 1) * 1.2) + "em";
+    w.el.style.zIndex = w.y;
+  }
+
   function assign(w, fromEdge){
-    w.p = person(); w.lane = pick(LANES); w.dir = Math.random() < .5 ? 1 : -1;
+    w.p = person(); w.dir = Math.random() < .5 ? 1 : -1;
+    w.y = pick(ROWS); w.ty = w.y; w.vy = 0;
     w.x = fromEdge ? (w.dir > 0 ? -4 : W + 1) : rnd(4, W - 8);
     w.speed = rnd(2, 5); w.pause = fromEdge ? rnd(0, 6) : 0; w.leaving = false;
-    w.el.style.top = (w.lane * 1.2) + "em"; w.el.style.zIndex = w.lane;
+    w.partner = null; w.cool = clock + rnd(4, 12);
+    if (fromEdge && Math.random() < .1) { setState(w, "run"); w.speed = rnd(11, 15); w.pause = 0; }
+    else setState(w, "walk");
     w.el.setAttribute("aria-label", "Someone on the Capitol mall");
   }
   function spawn(){
     const el = document.createElement("button");
     el.className = "walker"; el.type = "button";
-    el.innerHTML = "<span></span><span></span><span></span>";
+    el.innerHTML = "<span></span><span></span><span></span><span></span>";
     scene.appendChild(el);
-    const w = {el, step: 0, lastCol: null};
+    const w = {el, step: 0, lastCol: null, key: ""};
     assign(w, false);
     el.addEventListener("pointerenter", e => { if (e.pointerType === "mouse" && !pinned) show(w); });
     el.addEventListener("pointerleave", e => { if (e.pointerType === "mouse" && !pinned) hide(); });
@@ -313,6 +368,81 @@ const ART_CLS=["................................................................
   }
   walkers = Array.from({length: 12}, spawn);
 
+  /* ---------- small social moments ---------- */
+  function startChat(a, b){
+    const d = rnd(5, 11);
+    setState(a, "chat", d); setState(b, "chat", d);
+    a.partner = b; b.partner = a; a.lead = true; b.lead = false;
+    a.speaking = true; b.speaking = false;
+    a.dir = b.x > a.x ? 1 : -1; b.dir = -a.dir;
+    a.pause = b.pause = 0;
+  }
+  function endChat(w){
+    const p = w.partner;
+    [w, p].forEach(v => {
+      if (!v) return;
+      v.partner = null; v.cool = clock + rnd(15, 30);
+      if (Math.random() < .45) v.dir *= -1;          // sometimes they head back the way they came
+      if (v.state === "chat") setState(v, "walk");
+    });
+  }
+  function socialize(dt){
+    for (let i = 0; i < walkers.length; i++) for (let j = i + 1; j < walkers.length; j++) {
+      const a = walkers[i], b = walkers[j];
+      if (a === active || b === active || a.leaving || b.leaving) continue;
+      if (a.state !== "walk" || b.state !== "walk" || clock < a.cool || clock < b.cool) continue;
+      const dx = b.x - a.x, dy = Math.abs(b.y - a.y);
+      const facing = a.dir === Math.sign(dx) && b.dir === -a.dir;
+      if (!facing || dy > 1) continue;
+      if (Math.abs(dx) > 3.5 && Math.abs(dx) < 7 && chance(1.4, dt)) startChat(a, b);
+      else if (Math.abs(dx) <= 3.5 && chance(.6, dt)) { const v = Math.random() < .5 ? a : b; setState(v, "wave", 1.2); v.cool = clock + 20; }
+    }
+  }
+
+  function update(w, dt){
+    w.t += dt; w.anim += dt * (w.state === "smoke" ? 1.4 : 2.2);
+    if (w.leaving && w.state !== "walk" && w.state !== "run") { if (w.partner) endChat(w); setState(w, "walk"); }
+    let speed = 0;
+    switch (w.state) {
+      case "walk":
+        if (w.pause > 0) w.pause -= dt; else speed = w.speed * (w.leaving ? 1.6 : 1);
+        if (!w.leaving) {
+          if (chance(.12, dt)) w.ty = pick(ROWS);                                   // drift toward a new row
+          if (chance(.05, dt) && w.pause <= 0) w.pause = rnd(.8, 2.4);              // stop for a second
+          if (chance(.03, dt)) w.speed = Math.max(1.5, Math.min(5.5, w.speed + rnd(-1.2, 1.2)));
+          if (chance(.016, dt)) setState(w, "smoke", rnd(8, 15));
+          else if (chance(.02, dt)) setState(w, "phone", rnd(7, 13));
+          else if (chance(w.p.role === "Constituent" ? .07 : .008, dt)) setState(w, "lost", rnd(3, 6));
+          else if (chance(.01, dt)) setState(w, "turn", .8);
+        }
+        break;
+      case "run": speed = w.speed; break;
+      case "phone":                                                                  // pacing
+        speed = 1.2;
+        if (w.t > w.flipAt) { w.dir *= -1; w.flipAt = w.t + rnd(1.5, 3.5); }
+        break;
+      case "lost":                                                                   // looking around
+        if (w.t > w.flipAt) { w.dir *= -1; w.flipAt = w.t + rnd(.5, 1.1); }
+        break;
+      case "wave": speed = w.speed * .5; break;
+      case "chat":
+        if (w.lead && w.t > w.flipAt) { w.speaking = !w.speaking; if (w.partner) w.partner.speaking = !w.speaking; w.flipAt = w.t + rnd(1.4, 3); }
+        break;
+    }
+    if (w.state === "turn" && w.t > w.dur) { w.dir *= -1; setState(w, "walk"); }
+    else if (w.dur && w.t > w.dur) { if (w.state === "chat") { if (w.lead || w.t > w.dur + 1) endChat(w); } else setState(w, "walk"); }
+
+    if (speed > 0 && w.ty !== w.y) {                                                 // step between rows on the diagonal
+      w.vy += dt;
+      if (w.vy > .55) { w.y += Math.sign(w.ty - w.y); w.vy = 0; }
+    }
+    w.x += w.dir * speed * dt;
+    const col = Math.round(w.x);
+    if (col !== w.lastCol) { w.lastCol = col; if (speed > 0) w.step++; }
+    if (w.x < -5 || w.x > W + 2) assign(w, true);
+    draw(w);
+  }
+
   function newCrowd(){
     walkers.forEach(w => { if (w !== active) { w.leaving = true; w.pause = 0; } });
     setTimeout(newCrowd, rnd(70, 120) * 1000);
@@ -321,7 +451,7 @@ const ART_CLS=["................................................................
 
   /* everyone gets something new to say every 15 seconds */
   setInterval(() => {
-    walkers.forEach(w => { w.p.quote = pick(QUOTES); });
+    walkers.forEach(w => { w.p.quote = quoteFor(w); });
     if (active) { card.textContent = "“" + active.p.quote + "”"; place(); }
   }, 15000);
 
@@ -371,15 +501,11 @@ const ART_CLS=["................................................................
     if (treeClock > .18) { treeClock = 0; trees.forEach(tr => renderTree(tr, reduce ? 0 : t)); }
     flagClock += dt;
     if (!reduce && flagClock > .26) { flagClock = 0; flags.forEach(fl => { if (Math.random() < .85) { fl.f++; renderFlag(fl); } }); }
-    if (!reduce) walkers.forEach(w => {
-      if (w === active) return;
-      if (w.pause > 0) { w.pause -= dt; return; }
-      w.x += w.dir * w.speed * (w.leaving ? 1.6 : 1) * dt;
-      const col = Math.round(w.x);
-      if (col !== w.lastCol) { w.lastCol = col; w.step++; draw(w); }
-      if (!w.leaving && Math.random() < dt * .08) w.pause = rnd(.8, 2.6);
-      if (w.x < -5 || w.x > W + 2) { assign(w, true); draw(w); }
-    });
+    if (!reduce) {
+      clock += dt;
+      walkers.forEach(w => { if (w !== active) update(w, dt); });
+      socialize(dt);
+    }
     if (active) place();
     requestAnimationFrame(tick);
   }
