@@ -67,6 +67,8 @@ section p{margin:0 0 14px;max-width:62ch}
 .about{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start}
 .portrait{margin:0;font-family:var(--f-mono);font-size:5.4px;line-height:1.2;color:var(--ink);white-space:pre;user-select:none}
 @media (max-width:560px){.about{grid-template-columns:1fr;gap:20px}}
+.portrait-stack{position:relative;justify-self:start}
+.portrait-2{position:absolute;left:0;top:0;transform:translate(.5ch,.6em);opacity:.45;pointer-events:none}
 .issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0;padding:0;list-style:none}
 .issues li{background:var(--bg);padding:14px 16px;min-width:0}
 .issues b{display:block;font-family:var(--f-display);font-weight:500;font-size:18px}
@@ -88,7 +90,9 @@ footer{font-family:var(--f-mono);font-size:12px;color:var(--muted);border-top:1p
   <section id="about">
     <h2>About - Nick Sandberg</h2>
     <div class="about">
-      <pre class="portrait" role="img" aria-label="ASCII portrait of Nick Sandberg">
+      <div class="portrait-stack" role="img" aria-label="ASCII portrait of Nick Sandberg">
+<pre class="portrait" aria-hidden="true">
+
                         0@8@@8@@8@00G;
                        0@8@@8@@8@@8@@88@0G
                   G8@8@@8@@8@@8@@8@@8@@8@@08%
@@ -128,7 +132,52 @@ footer{font-family:var(--f-mono);font-size:12px;color:var(--muted);border-top:1p
           .:t8@@@@@@@@@@@@@@,            .0@@@@@@@@01,
               .:10@@@@@@@@@@0            ,@@@@8Gi,.
                    .,:itG08@@:    .      ,i:.
+
 </pre>
+<pre class="portrait portrait-2" aria-hidden="true">
+                         111C000Ci
+                       0@@8@@8@@8@@8@80C
+                   i008@@8@@8@@8@@8@@8@@00C
+                i@8@@8@@8@@8@@8@@8@@8@@8@@0CG
+               0@8@@8@@8@00088@@8@@8@@8@@8@0%;
+              %@8@@8@@0C%%::%CG0@@8@@8@@8@@8%%
+              C8@@8@@0C%,,,,,,,,,;f8@@@8@@8@C%%
+              G@@8@@0C%,,,,.........i888@8@@8%%
+              ;@8@@88G:,,,............;1f8@8@G%G
+               8@@8@G:,,,................:t0@8%0%
+               @@8C;;;1tt1;:.....,:;ttt1;,,,i@@0%
+               880;1fLfttft1;,,,:;1t1;;;;i,..f8@1
+               0@t1ti1tffft11i:,;i;tLLLttii;,,00;
+               0@i:tift1tii1fL,.;t:;iii;;;i. .t,.,
+               00;:;i:::,,,;t1,.,;:.....,:,.  .,..
+               80;::::::::;ii;,..,:;::::,.... ....
+                ii::,,.,,:;1;i:,:i:,,::,,.... ....
+                ,i::::,:;;iitt1i:::,,,:11::,,..,,
+                  :::::iiiii;;::::;;itf1i,,,...,,
+                  ,;::,,;t0G;:,,,.,,;t:,,,,.,.,,
+                   :;::,,:;i1i1iiii;;,,,,,,,:.,
+                    :i;;:::;;iii;;:,,,,,,,::..
+                     .iii;:::::::,,,,,,::;;,.
+                      ;i111;::,,,,,,,,;i;:,.:
+                     .:;i1tt11i;;;ii11i:,..,
+                    .t1i;;;ii11tt11i;:,...:   18t11i;
+                   ,08,fi::::::;:,,,.....;.  ,880GGGft0tf0t:
+                 .i@@@;.ii:,,,,::,.....,:,.. ;@@808888000@@0ti1
+               ,18@@@@0. :;,..,,,,,..,,,. .:,L@@@@8888888@@@8888@8
+       ;:   .18@@@@@@@@;...:,......,:,      ;@@@@@@@8@@@@@@@@@@@@@@0.
+     .,;:.:G@@@@@@@@@@@0:i:,,,....,;,      .0@@@@@@@@@@@@@@@@@@@@@L
+     .,t0@@@@@@@@@@@@@@@i:,......,::       :@@@@@@@@@@@@@@@@@@@@@;
+ ..,i0@@@@@@@@@@@@@@@@@@@,..     ..        f@@@@@@@@@@@@@@@@@@@t.
+ .f@@@@@@@@@@@@@@@@@@@@@@0.               .@@@@@@@@@@@@@@@@@@t.
+   .t@@@@@@@@@@@@@@@@@@@@@i               ;@@@@@@@@@@@@@@@@i.
+      ;0@@@@@@@@@@@@@@@@@@8.              G@@@@@@@@@@@@@G:
+        .;G@@@@@@@@@@@@@@@@i             ,@@@@@@@@@@8f:
+            .iG@@@@@@@@@@@@@.            ;@@@@@@8f;.
+                .,if0@@@@@@@f            0@0t;,.
+                      ..,,:;i.
+
+</pre>
+</div>
       <div>
         <p>I studied political science at the University of Minnesota, then worked for the Legislature in nonpartisan roles before moving into government relations at <a href="https://momentum-advocacy.com">Momentum Advocacy</a>, where I work with clients in technology, transportation, and healthcare.</p>
 <p>I got into lobbying because it looked like fun. Since, I've found the work to be endlessly rewarding (and fun only sometimes). My belief that trust in government is important has been reinforced by my experience as a lobbyist. I try to be honest and easy to work with.</p>
